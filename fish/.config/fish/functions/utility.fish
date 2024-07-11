@@ -30,5 +30,5 @@ function getvol
 end
 
 function screenshot
-	slurp | grim -g - "/home/sidharth/downloads/$(date +'screenshot_%Y-%m-%d-%H-%M.png')"
+	slurp | grim -g - "$HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H-%M.png')"
 end
