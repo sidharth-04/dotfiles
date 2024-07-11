@@ -1,0 +1,10 @@
+[font]
+normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+size = 10.5
+
+[cursor]
+style = { shape = "Beam", blinking = "Never" }
+vi_mode_style = { shape = "Block", blinking = "Never" }
+
+[mouse]
+hide_when_typing = true
