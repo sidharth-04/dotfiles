@@ -16,6 +16,7 @@ alias navprog="cd $HOME/programming"
 alias navbooks="cd $HOME/books"
 
 # utility 
+alias lsa="ls -a"
 alias wm="$WINDOWMANAGER"
 alias nv="neovide & disown; exit"
 alias chmox="chmod +x"
