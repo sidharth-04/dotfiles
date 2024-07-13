@@ -17,18 +17,6 @@ function pactivate
 	source $argv/bin/activate
 end
 
-function bat
-	cat /sys/class/power_supply/BAT0/capacity
-end
-
-function vol
-	wpctl set-volume @DEFAULT_SINK@ $argv
-end
-
-function getvol
-	wpctl get-volume @DEFAULT_SINK@
-end
-
 function screenshot
 	slurp | grim -g - "$HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H-%M.png')"
 end

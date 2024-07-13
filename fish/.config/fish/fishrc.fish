@@ -6,4 +6,4 @@ set -gx BROWSER "firefox"
 set -gx WINDOWMANAGER "Hyprland"
 
 set -a PATH "$HOME/.local/bin"
-
+set -a PATH "$HOME/.cargo/bin"

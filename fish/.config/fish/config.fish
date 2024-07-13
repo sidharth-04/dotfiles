@@ -16,6 +16,7 @@ alias navbooks="cd $HOME/books"
 
 # utility 
 alias lsa="ls -la"
+alias cat="bat"
 alias wm="$WINDOWMANAGER"
 alias nv="neovide & disown; exit"
 alias chmox="chmod +x"
