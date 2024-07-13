@@ -1,0 +1,16 @@
+#!/bin/bash
+
+EWW="$(which eww)"
+
+## Run eww daemon if not running already
+if [[ ! `pidof eww` ]]; then
+	${EWW} daemon
+fi
+
+if [[ $(${EWW} active-windows) != "" ]]; then
+	${EWW} close-all
+else
+	${EWW} open bar
+	${EWW} open system
+	${EWW} open calendar
+fi
