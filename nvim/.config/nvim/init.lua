@@ -194,6 +194,9 @@ require("lazy").setup({
 		  },
 		}
 	  },
+	},
+	{
+		'elkowar/yuck.vim'
 	}
 })
 
@@ -230,6 +233,11 @@ virtual_text.toggle = function()
 	if virtual_text.show then vim.diagnostic.enable() else vim.diagnostic.disable() end
 end
 
+toggletab = function(size)
+	vim.opt.shiftwidth = size
+	vim.opt.tabstop = size
+end
+
 -- Key Bindings
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
@@ -252,8 +260,8 @@ vim.keymap.set(
 vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
 -- Telescope
-require "telescope.builtin".lsp_definitions { jump_type = "never" }
 vmap("n", "<leader>fd", "<cmd>lua require 'telescope.builtin'.lsp_definitions { jump_type = 'never' }<cr>")
+vmap("n", "<leader>jd", "<cmd>Telescope lsp_definitions<cr>")
 vmap("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols ignore_symbols=variable<cr>")
 vmap("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
 vmap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
