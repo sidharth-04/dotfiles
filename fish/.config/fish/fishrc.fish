@@ -4,6 +4,8 @@ set -gx EDITOR "nvim"
 set -gx EMULATOR "alacritty"
 set -gx BROWSER "firefox"
 set -gx WINDOWMANAGER "Hyprland"
+set -gx FILEMANAGER "nautilus"
+set -gx LAUNCHER "fuzzel"
 
 set -a PATH "$HOME/.local/bin"
 set -a PATH "$HOME/.cargo/bin"

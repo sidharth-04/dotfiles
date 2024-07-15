@@ -29,6 +29,10 @@ function sourceConda
 end
 sourceConda
 
+function nvm
+    bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
+end
+
 # Shell Config
 function fish_greeting
     echo login at (set_color yellow; date +%T; set_color normal) on $hostname

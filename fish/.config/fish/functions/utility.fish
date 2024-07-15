@@ -9,6 +9,10 @@ function open
 	zathura $argv & disown
 end
 
+function browse
+	$FILEMANAGER $argv & disown
+end
+
 function clon
 	$EMULATOR & disown
 end
