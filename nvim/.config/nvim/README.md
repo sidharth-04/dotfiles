@@ -2,4 +2,4 @@
 
 Take a look
 
-![Showacase Image](media/Showcase.png)
+![Showacase Image](media/showcase.png)

@@ -6,6 +6,7 @@ set -gx BROWSER "firefox"
 set -gx WINDOWMANAGER "Hyprland"
 set -gx FILEMANAGER "nautilus"
 set -gx LAUNCHER "fuzzel"
+set -gx GTK_THEME Adwaita:dark
 
 set -a PATH "$HOME/.local/bin"
 set -a PATH "$HOME/.cargo/bin"

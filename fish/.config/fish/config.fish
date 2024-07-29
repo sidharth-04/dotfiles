@@ -29,6 +29,10 @@ function sourceConda
 end
 sourceConda
 
+function sourceVulk
+	eval "bass source $HOME/vulkan/1.3.290.0/setup-env.sh"
+end
+
 function nvm
     bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
 end

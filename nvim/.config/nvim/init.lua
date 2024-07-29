@@ -213,6 +213,7 @@ require("mason-lspconfig").setup_handlers {
 }
 
 -- Font size for Neovide, fix this
+vim.g.neovide_hide_mouse_when_typing = true
 vim.g.neovide_scale_factor = 1.0
 local change_scale_factor = function(delta)
   vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
