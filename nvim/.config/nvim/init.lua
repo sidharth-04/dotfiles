@@ -100,7 +100,11 @@ require("lazy").setup({
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
-        require("nvim-tree").setup {}
+			require("nvim-tree").setup {
+				filters = {
+					dotfiles = true
+				}
+			}
         end,
     },
     {
@@ -197,7 +201,15 @@ require("lazy").setup({
 	},
 	{
 		'elkowar/yuck.vim'
-	}
+	},
+	{
+	  'mrcjkb/rustaceanvim',
+	  version = '^5', -- Recommended
+	  lazy = false, -- This plugin is already lazy
+	},
+	{
+		'github/copilot.vim'
+	},
 })
 
 require("mason").setup()
@@ -233,6 +245,10 @@ virtual_text.toggle = function()
     virtual_text.show = not virtual_text.show
 	if virtual_text.show then vim.diagnostic.enable() else vim.diagnostic.disable() end
 end
+vim.diagnostic.config({
+	severity_sort = true,
+	virtual_text = true
+})
 
 toggletab = function(size)
 	vim.opt.shiftwidth = size
@@ -259,6 +275,20 @@ vim.keymap.set(
 	"<cmd>Terminal<cr>"
 )
 vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
+
+-- Latex
+vim.api.nvim_create_user_command("LatexCompile", function()
+	local texpath = vim.fn.expand("%")
+	vim.cmd("!tectonic -Z continue-on-errors " .. texpath)
+end, {})
+vim.api.nvim_create_user_command("LatexCompileBackground", function()
+	local texpath = vim.fn.expand("%")
+	vim.cmd("silent !tmux new -d \"tectonic -Z continue-on-errors " .. texpath .. "\"")
+end, {})
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*.tex" },
+	command = "LatexCompileBackground",
+})
 
 -- Telescope
 vmap("n", "<leader>fd", "<cmd>lua require 'telescope.builtin'.lsp_definitions { jump_type = 'never' }<cr>")

@@ -2,6 +2,10 @@
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 size = 10.5
 
+[font.offset]
+x = -1
+y = 1
+
 [cursor]
 style = { shape = "Beam", blinking = "Never" }
 vi_mode_style = { shape = "Block", blinking = "Never" }
