@@ -96,7 +96,7 @@ require("lazy").setup({
 		cmd = {"NvimTreeToggle", "NvimTreeFocus"},
         version = "*",
         dependencies = {
-			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+			"lewis6991/gitsigns.nvim",
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
@@ -168,15 +168,6 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" }
 	},
 	{
-		"OXY2DEV/markview.nvim",
-		dependencies = {
-			-- You may not need this if you don't lazy load
-			-- Or if the parsers are in your $RUNTIMEPATH
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons"
-		}
-	},
-	{
 	  'nvim-java/nvim-java',
 	  lazy = true,
 	  dependencies = {
@@ -201,12 +192,7 @@ require("lazy").setup({
 	},
 	{
 		'elkowar/yuck.vim'
-	},
-	{
-	  'mrcjkb/rustaceanvim',
-	  version = '^5', -- Recommended
-	  lazy = false, -- This plugin is already lazy
-	},
+	},	
 	{
 		'github/copilot.vim'
 	},

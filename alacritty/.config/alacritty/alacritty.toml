@@ -1,3 +1,8 @@
+[window]
+startup_mode = "Maximized"
+decorations = "None"
+opacity = 0.95
+
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 size = 10.5
@@ -12,3 +17,6 @@ vi_mode_style = { shape = "Block", blinking = "Never" }
 
 [mouse]
 hide_when_typing = true
+
+[env]
+TERM = "xterm-256color"

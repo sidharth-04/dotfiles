@@ -24,3 +24,9 @@ end
 function screenshot
 	slurp | grim -g - "$HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H-%M.png')"
 end
+
+function mux
+	if count $argv > /dev/null
+		zsh ~/misc/scripts/tmux/tmux-$argv.sh
+	end
+end
