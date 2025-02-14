@@ -10,10 +10,19 @@ vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.laststatus = 0
 vim.opt.mouse = ""
+vim.opt.conceallevel = 1
 vim.opt.guifont = { "Hack Nerd Font Mono", ":h11" }
 vim.api.nvim_create_autocmd("ExitPre", {
 	group = vim.api.nvim_create_augroup("Exit", { clear = true }),
 	command = "set guicursor=a:ver90", desc = "Reset cursor to beam when leaving nvim"
+})
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  pattern = { '*.md' },
+  callback = function()
+    -- vim.opt.colorcolumn = '75'
+    vim.opt.textwidth = 75
+	vim.cmd("Copilot disable")
+  end,
 })
 vim.api.nvim_create_user_command("Terminal", function()
 	vim.cmd("terminal")
@@ -191,11 +200,62 @@ require("lazy").setup({
 	  },
 	},
 	{
-		'elkowar/yuck.vim'
-	},	
-	{
 		'github/copilot.vim'
 	},
+    {
+        'barrett-ruth/live-server.nvim',
+        build = 'npm add -g live-server',
+        cmd = { 'LiveServerStart', 'LiveServerStop' },
+        config = true
+    },
+	{
+		'rhysd/conflict-marker.vim'
+	},
+	{
+	  "epwalsh/obsidian.nvim",
+	  version = "*",  -- recommended, use latest release instead of latest commit
+	  lazy = true,
+	  ft = "markdown",
+	  -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+	  -- event = {
+	  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+	  --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+	  --   -- refer to `:h file-pattern` for more examples
+	  --   "BufReadPre path/to/my-vault/*.md",
+	  --   "BufNewFile path/to/my-vault/*.md",
+	  -- },
+	  dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-telescope/telescope.nvim",
+		"nvim-treesitter/nvim-treesitter",
+	  },
+	  opts = {
+		workspaces = {
+		  {
+			name = "personal",
+			path = "~/vaults/personal",
+		  },
+		  {
+			name = "work",
+			path = "~/vaults/work",
+		  },
+		},
+		-- see below for full list of options 👇
+		daily_notes = {
+			folder = "daily_notes"
+		},
+	  -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
+	  -- URL it will be ignored but you can customize this behavior here.
+	  ---@param url string
+	  follow_url_func = function(url)
+		-- Open the URL in the default web browser.
+		-- vim.fn.jobstart({"open", url})  -- Mac OS
+		-- vim.fn.jobstart({"xdg-open", url})  -- linux
+		-- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
+		vim.ui.open(url) -- need Neovim 0.10.0+
+	  end,
+	  }
+	}
 })
 
 require("mason").setup()
@@ -250,6 +310,7 @@ local vmap = vim.keymap.set
 vmap("n", "<F1>", ":w<CR>")
 vmap("n", "W", ":w<CR>")
 map("n", "<Leader>tt", "<Cmd>lua virtual_text.toggle()<CR>", opts)
+map("n", "<Leader>p", "<Cmd>lua copilot_toggle()<CR>", opts)
 map("n", "<Leader>bh", "<Cmd>bprevious<CR>", opts)
 map("n", "<Leader>bl", "<Cmd>bnext<CR>", opts)
 map("n", "<Leader>bx", "<Cmd>bd<CR>", opts)
@@ -284,9 +345,23 @@ vmap("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
 vmap("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 vmap("n", "<leader>gp", "<cmd>Telescope live_grep<cr>")
 
+-- Copilot
+vim.api.nvim_create_user_command("CopilotToggle", function ()
+  vim.g.copilot_enabled = not vim.g.copilot_enabled
+  if vim.g.copilot_enabled then
+    vim.cmd("Copilot disable")
+    print("Copilot OFF")
+  else 
+    vim.cmd("Copilot enable")
+    print("Copilot ON")
+  end
+end, {nargs = 0})
+map("n", "<Leader>p", "<Cmd>CopilotToggle<CR>", opts)
+
 -- NvimTree
 vmap("n", "<C-n>", "<cmd>NvimTreeToggle<cr>")
 vmap("n", "<leader>e", "<cmd>NvimTreeFocus<cr>")
+vmap("n", "<leader>f<cr>", "<cmd>NvimTreeFindFile<cr>")
 
 -- Oil
 map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
@@ -297,6 +372,11 @@ vmap("n", "<leader>mc", "<cmd>MarkdownPreviewStop<cr>")
 
 -- Makview
 vmap("n", "<leader>mv", "<cmd>Markview<cr>")
+
+-- Obsidian
+vmap("n", "<leader>oq", "<cmd>ObsidianQuickSwitch<cr>")
+vmap("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>")
+vmap("n", "<leader>ot", "<cmd>ObsidianTags<cr>")
 
 -- Mini Surround
 require('mini.surround').setup()
@@ -316,3 +396,4 @@ vmap("n", "<leader>h2", function() harpoon:list():select(2) end)
 vmap("n", "<leader>h3", function() harpoon:list():select(3) end)
 vmap("n", "<leader>h4", function() harpoon:list():select(4) end)
 vmap("n", "<leader>h5", function() harpoon:list():select(5) end)
+vmap("n", "<leader>h6", function() harpoon:list():select(6) end)
