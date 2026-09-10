@@ -6,7 +6,7 @@ function take
 end
 
 function open
-	zathura $argv & disown
+	xdg-open $argv & disown
 end
 
 function browse
@@ -21,12 +21,12 @@ function pactivate
 	source $argv/bin/activate
 end
 
-function screenshot
-	slurp | grim -g - "$HOME/downloads/$(date +'screenshot_%Y-%m-%d-%H-%M.png')"
-end
-
 function mux
 	if count $argv > /dev/null
-		zsh ~/misc/scripts/tmux/tmux-$argv.sh
+		bash ~/misc/scripts/tmux/tmux-$argv.sh
 	end
+end
+
+function fish_command_not_found
+    __fish_default_command_not_found_handler $argv
 end

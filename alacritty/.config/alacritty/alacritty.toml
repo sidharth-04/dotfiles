@@ -1,7 +1,6 @@
 [window]
 startup_mode = "Maximized"
 decorations = "None"
-opacity = 0.95
 
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
